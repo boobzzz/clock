@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class Clock extends React.Component {
+    state = {
+        dateTime: new Date(),
+        format: 'eu', // 'en-US'
+    }
+
+    setFormat = (format) => {
+        this.setState({
+            format: format,
+        })
+    }
+
+    componentDidMount = () => {
+        this.timer = setInterval(() => {
+            this.setState({
+                dateTime: new Date(),
+            })
+        }, 1000);
+    }
+
+    componentWillUnmount = () => {
+        clearInterval(this.timer);
+    }
+
+    render() {
+        let {dateTime, format} = this.state;
+
+        return (
+            <div className="App">
+                <span>Time:</span>
+                {' '}
+                <span>{dateTime.toLocaleTimeString(this.state.format)}</span>
+                <div>
+                    <button onClick={() => this.setFormat('eu')}>24</button>
+                    <button onClick={() => this.setFormat('en-US')}>12</button>
+                </div>
+            </div>
+        );
+    }
 }
-
-export default App;
