@@ -25,7 +25,7 @@ export default class Clock extends React.Component {
     }
 
     render() {
-        let {dateTime, format} = this.state;
+        let {dateTime} = this.state;
 
         return (
             <div className="App">
